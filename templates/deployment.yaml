@@ -1,0 +1,113 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "k8s-sync-chart.fullname" . }}
+  labels:
+    app: {{ template "k8s-sync-chart.name" . }}
+    chart: {{ template "k8s-sync-chart.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "k8s-sync-chart.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "k8s-sync-chart.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+#      nodeSelector:
+      # k8s-sync must run on master node
+      #affinity:
+      #  nodeAffinity:
+      #    requiredDuringSchedulingIgnoredDuringExecution:
+      #      nodeSelectorTerms:
+      #      - matchExpressions:
+      #        - key: node-role.kubernetes.io/master
+      #          operator: Exists
+      imagePullSecrets:
+      - name: regsecret
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          #ports:
+          #  - name: http
+          #    containerPort: 80
+          #    protocol: TCP
+          #livenessProbe:
+          #  httpGet:
+          #    path: /
+          #    port: http
+          #readinessProbe:
+          #  httpGet:
+          #    path: /
+          #    port: http
+          env:
+          - name: AWSED_CA
+            valueFrom:
+              secretKeyRef:
+                key: AWSED_CA
+                name: {{ .Release.Name }}-auth
+          - name: K8S_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                key: K8S_ENDPOINT
+                name: {{ .Release.Name }}-auth
+          - name: K8S_CA
+            valueFrom:
+              secretKeyRef:
+                key: K8S_CA
+                name: {{ .Release.Name }}-auth
+          - name: K8S_CERT
+            valueFrom:
+              secretKeyRef:
+                key: K8S_CERT
+                name: {{ .Release.Name }}-auth
+          - name: K8S_KEY
+            valueFrom:
+              secretKeyRef:
+                key: K8S_KEY
+                name: {{ .Release.Name }}-auth
+          - name: JAVA_OPTS
+            valueFrom:
+              secretKeyRef:
+                key: JAVA_OPTS
+                name: {{ .Release.Name }}-auth
+          - name: AWSED_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                key: AWSED_ENDPOINT
+                name: {{ .Release.Name }}-auth
+          - name: AWSED_APIKEY
+            valueFrom:
+              secretKeyRef:
+                key: AWSED_APIKEY
+                name: {{ .Release.Name }}-auth
+          - name: SYNC_ENV
+            valueFrom:
+              secretKeyRef:
+                key: SYNC_ENV
+                name: {{ .Release.Name }}-auth
+          - name: SYNC_SCHEDULE
+            valueFrom:
+              secretKeyRef:
+                key: SYNC_SCHEDULE
+                name: {{ .Release.Name }}-auth
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
