@@ -30,10 +30,18 @@ spec:
       #          operator: Exists
       imagePullSecrets:
       - name: regsecret
+      volumes:
+      - name: user-data
+        hostPath:
+          path: /efs/dsmlp-user-data
+          type: Directory
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+          - mountPath: /home/linux/dsmlp
+            name: user-data
           #ports:
           #  - name: http
           #    containerPort: 80
