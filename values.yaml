@@ -54,4 +54,4 @@ tolerations:
 #          operator: Exists
 
 SYNC_SCHEDULE: 0 36 * * * *
-
+userData: /efs/dsmlp-user-data

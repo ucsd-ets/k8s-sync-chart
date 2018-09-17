@@ -33,7 +33,7 @@ spec:
       volumes:
       - name: user-data
         hostPath:
-          path: /efs/dsmlp-user-data
+          path: {{ .Values.userData }}
           type: Directory
       containers:
         - name: {{ .Chart.Name }}
