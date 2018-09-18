@@ -115,6 +115,10 @@ spec:
           - name: NO_PROXY
             value: {{ .Values.noProxy }}
 {{- end}}
+{{- if (.Values.javaOpts) }}
+          - name: JAVA_OPTS
+            value: {{ .Values.javaOpts }}
+{{- end}}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
