@@ -32,9 +32,10 @@ spec:
       - name: regsecret
       volumes:
       - name: user-data
-        hostPath:
-          path: {{ .Values.userData }}
-          type: Directory
+        {{ .Values.volume | toYaml | indent 8 | trim }}
+#        hostPath:
+#          path: {{ .Values.userData }}
+#          type: Directory
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

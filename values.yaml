@@ -45,6 +45,11 @@ tolerations:
   - key: node-role.kubernetes.io/master
     effect: NoSchedule
 
+volume:
+#  hostPath:
+#    path: /tmp/k8s-sync-data
+#    type: Directory
+
 #affinity:
 #  nodeAffinity:
 #    requiredDuringSchedulingIgnoredDuringExecution:
@@ -54,4 +59,4 @@ tolerations:
 #          operator: Exists
 
 SYNC_SCHEDULE: 0 36 * * * *
-userData: /efs/dsmlp-user-data
+#userData: /efs/dsmlp-user-data
