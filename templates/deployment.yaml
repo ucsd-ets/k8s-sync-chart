@@ -20,7 +20,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       imagePullSecrets:
-      - name: regsecret
+      - name: {{ .Values.image.pullSecret }}
       volumes:
       - name: user-data
         {{ .Values.volume | toYaml | indent 8 | trim }}
