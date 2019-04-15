@@ -19,23 +19,13 @@ spec:
         app: {{ template "k8s-sync-chart.name" . }}
         release: {{ .Release.Name }}
     spec:
-#      nodeSelector:
-      # k8s-sync must run on master node
-      #affinity:
-      #  nodeAffinity:
-      #    requiredDuringSchedulingIgnoredDuringExecution:
-      #      nodeSelectorTerms:
-      #      - matchExpressions:
-      #        - key: node-role.kubernetes.io/master
-      #          operator: Exists
       imagePullSecrets:
       - name: regsecret
       volumes:
       - name: user-data
         {{ .Values.volume | toYaml | indent 8 | trim }}
-#        hostPath:
-#          path: {{ .Values.userData }}
-#          type: Directory
+      - name: datasets-home
+        {{ .Values.datasetsVolume | toYaml | indent 8 | trim }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -43,18 +33,8 @@ spec:
           volumeMounts:
           - mountPath: /home/linux/dsmlp
             name: user-data
-          #ports:
-          #  - name: http
-          #    containerPort: 80
-          #    protocol: TCP
-          #livenessProbe:
-          #  httpGet:
-          #    path: /
-          #    port: http
-          #readinessProbe:
-          #  httpGet:
-          #    path: /
-          #    port: http
+          - mountPath: /datasets/home
+            name: datasets-home
           env:
           - name: AWSED_CA
             valueFrom:
