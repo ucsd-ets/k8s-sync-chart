@@ -15,17 +15,6 @@ image:
   repository: ucsdets/k8s-sync
   tag: standalone-updater
   pullSecret: ucsdetsreg
-volume:
-  nfs:
-    server: acsnfs4.ucsd.edu
-    path: /vol/home/linux/dsmlp
-datasetsVolume:
-  nfs:
-    server: its-dsmlp-fs01.ucsd.edu
-    path: /export/datasets/home
-
-nodeSelector:
-  kubernetes.io/hostname: its-dsmlp-master.ucsd.edu
 
 tolerations:
 - key: node-role.kubernetes.io/master
