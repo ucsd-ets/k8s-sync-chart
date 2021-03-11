@@ -15,16 +15,32 @@ spec:
         app: {{ template "k8s-sync-chart.name" . }}
         release: {{ .Release.Name }}
     spec:
-    selector:
-      matchLabels:
-        app: {{ template "k8s-sync-chart.name" . }}
-        release: {{ .Release.Name }}
       template:
         metadata:
           labels:
             app: {{ template "k8s-sync-chart.name" . }}
             release: {{ .Release.Name }}
         spec:
+          imagePullSecrets:
+          - name: {{ .Values.image.pullSecret }}
+          restartPolicy: Never
+        {{- with .Values.nodeSelector }}
+          nodeSelector:
+{{ toYaml . | indent 12 }}
+        {{- end }}
+        {{- with .Values.affinity }}
+          affinity:
+{{ toYaml . | indent 12 }}
+        {{- end }}
+        {{- with .Values.tolerations }}
+          tolerations:
+{{ toYaml . | indent 10 }}
+        {{- end }}
+          volumes:
+          - name: user-data
+            {{ .Values.volume | toYaml | indent 12 | trim }}
+          - name: datasets-home
+            {{ .Values.datasetsVolume | toYaml | indent 12 | trim }}
           containers:
             - name: {{ .Chart.Name }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -101,14 +117,3 @@ spec:
     {{- end}}
               resources:
 {{ toYaml .Values.resources | indent 16 }}
-              nodeSelector:
-        {{ toYaml . | indent 16 }}
-            {{- end }}
-            {{- with .Values.affinity }}
-              affinity:
-        {{ toYaml . | indent 16 }}
-            {{- end }}
-            {{- with .Values.tolerations }}
-              tolerations:
-        {{ toYaml . | indent 16 }}
-            {{- end }}
