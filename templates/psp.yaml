@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ template "k8s-sync-chart.fullname" . }}
+  labels:
+    {{- include "k8s-sync-chart.labels" . | nindent 4 }}
+spec:
+  allowPrivilegeEscalation: false
+  allowedCapabilities:
+  - '*'
+  hostIPC: false
+  hostNetwork: true
+  hostPID: false
+  privileged: false
+  runAsUser:
+    rule: MustRunAs
+    ranges:
+    - min: 0
+      max: 0
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: MustRunAs
+    ranges:
+    - min: 0
+      max: 0
+  fsGroup:
+    rule: MustRunAs
+    ranges:
+    - min: 0
+      max: 0
+  volumes:
+  - '*'

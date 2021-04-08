@@ -24,6 +24,30 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 {{- end -}}
 
+
+{{/*
+Selector labels
+*/}}
+{{- define "k8s-sync-chart.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "k8s-sync-chart.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+
+{{/*
+Common labels
+*/}}
+{{- define "k8s-sync-chart.labels" -}}
+helm.sh/chart: {{ include "k8s-sync-chart.chart" . }}
+{{ include "k8s-sync-chart.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+
+
 {{/*
 Create chart name and version as used by the chart label.
 */}}
