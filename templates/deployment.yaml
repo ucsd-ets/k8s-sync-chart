@@ -32,10 +32,12 @@ spec:
       - name: regsecret
       volumes:
       - name: user-data
+{{- if (.Values.userData) }}
         hostPath:
           path: {{ .Values.userData }}
           type: Directory
-      containers:
+{{- end }}
+          containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
