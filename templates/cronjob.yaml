@@ -6,6 +6,7 @@ metadata:
     {{- include "k8s-sync-chart.labels" . | nindent 4 }}
 spec:
   schedule: "{{ .Values.SYNC_SCHEDULE }}"
+  concurrencyPolicy: "{{ .Values.cronjob.concurrencyPolicy }}"
   jobTemplate:
     metadata:
       labels:
