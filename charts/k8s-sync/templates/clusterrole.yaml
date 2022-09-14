@@ -23,3 +23,14 @@ rules:
   - podsecuritypolicies
   verbs:
   - use
+# k8s-sync creates cluster roles and bindings
+- apiGroups:
+  - ""
+  resources:
+  - "clusterroles"
+  - "clusterrolebindings"
+  - "persistentvolumes"
+  verbs:
+  - "get"
+  - "list"
+  - "create"
