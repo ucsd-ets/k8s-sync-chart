@@ -4,16 +4,6 @@ metadata:
   name: {{ template "k8s-sync-chart.name" . }}
   labels: {{- include "k8s-sync-chart.labels" . | nindent 4 }}
 rules:
-  - apiGroups:
-      - ""
-    resources:
-      - "namespaces"
-      - "pods"
-      - "nodes"
-    verbs:
-      - "get"
-      - "watch"
-      - "list"
   # k8s-sync user creation
   - apiGroups:
       - ""
@@ -21,13 +11,13 @@ rules:
       - "namespaces"
       - "pods"
       - "nodes"
-      - "role"
-      - "rolebinding"
-      - "clusterrolebinding"
-      - "persistentvolume"
-      - "persistentvolumeclaim"
-      - "limitrange"
-      - "resourcequota"
+      - "roles"
+      - "rolebindings"
+      - "clusterrolebindings"
+      - "persistentvolumes"
+      - "persistentvolumeclaims"
+      - "limitranges"
+      - "resourcequotas"
     verbs:
       - create
       - list
@@ -40,12 +30,3 @@ rules:
       - create
       - list
       - get
-  # security
-  - apiGroups:
-      - extensions
-    resourceNames:
-      - {{ template "k8s-sync-chart.name" . }}
-    resources:
-      - podsecuritypolicies
-    verbs:
-      - use
