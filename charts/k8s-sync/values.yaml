@@ -25,3 +25,4 @@ cronjob:
   concurrencyPolicy: Forbid
 
 automountServiceAccountToken: true
+perms: student-perms
