@@ -28,6 +28,7 @@ rules:
   - ""
   resources:
   - "persistentvolumes"
+  - "namespaces"
   verbs:
   - "get"
   - "list"
