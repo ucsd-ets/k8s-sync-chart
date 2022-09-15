@@ -66,6 +66,7 @@ rules:
   - "get"
   - "list"
   - "create"
+  - "use"
 - apiGroups:
   - "policy"
   resources:
