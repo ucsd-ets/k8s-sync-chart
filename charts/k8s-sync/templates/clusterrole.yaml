@@ -55,6 +55,8 @@ rules:
 - apiGroups:
   - "policy"
   resources:
+  - "podsecuritypolicies"
+  resourceNames:
   - "student-nouid"
   - "student-perms"
   verbs:
