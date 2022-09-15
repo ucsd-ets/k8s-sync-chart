@@ -56,5 +56,6 @@ rules:
   - "policy"
   resources:
   - "student-nouid"
+  - "student-perms"
   verbs:
   - "use"
