@@ -3,6 +3,15 @@ entries:
   k8s-sync:
   - apiVersion: v1
     appVersion: 1.0.92
+    created: "2022-09-15T02:44:52.615562436Z"
+    description: DSMLP Kubernetes syncrhonizer
+    digest: 3fb6d6162cc3671d2897146fb3ddad0e1f814d1d501f17a55f88bcf0ab96353d
+    name: k8s-sync
+    urls:
+    - https://github.com/ucsd-ets/k8s-sync-chart/releases/download/k8s-sync-2022.4.19/k8s-sync-2022.4.19.tgz
+    version: 2022.4.19
+  - apiVersion: v1
+    appVersion: 1.0.92
     created: "2022-09-15T02:33:47.892081424Z"
     description: DSMLP Kubernetes syncrhonizer
     digest: 3ad4c9010d92f53adad361fa4f227948badb8f9fd77b84a43153b1a619a9b334
@@ -145,4 +154,4 @@ entries:
     urls:
     - https://github.com/ucsd-ets/k8s-sync-chart/releases/download/k8s-sync-2022.4.3/k8s-sync-2022.4.3.tgz
     version: 2022.4.3
-generated: "2022-09-15T02:33:47.892318924Z"
+generated: "2022-09-15T02:44:52.616060629Z"
