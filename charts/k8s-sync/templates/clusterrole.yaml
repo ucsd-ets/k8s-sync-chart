@@ -55,6 +55,6 @@ rules:
 - apiGroups:
   - "policy"
   resources:
-  - "deppodsecuritypoliciesloyments"
+  - "student-nouid"
   verbs:
   - "use"
