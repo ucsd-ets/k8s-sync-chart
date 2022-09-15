@@ -29,6 +29,9 @@ rules:
   resources:
   - "persistentvolumes"
   - "namespaces"
+  - "persistentvolumeclaims"
+  - "limitranges"
+  - "resourcequotas"
   verbs:
   - "get"
   - "list"
@@ -38,6 +41,8 @@ rules:
   resources:
   - "clusterroles"
   - "clusterrolebindings"
+  - "roles"
+  - "rolebindings"
   verbs:
   - "get"
   - "list"
