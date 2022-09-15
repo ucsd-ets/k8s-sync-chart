@@ -68,6 +68,15 @@ rules:
   - "create"
   - "use"
 - apiGroups:
+  - "extensions"
+  resources:
+  - "podsecuritypolicies"
+  verbs:
+  - "get"
+  - "list"
+  - "create"
+  - "use"
+- apiGroups:
   - "policy"
   resources:
   - "podsecuritypolicies"
